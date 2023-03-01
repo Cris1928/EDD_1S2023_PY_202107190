@@ -1,0 +1,27 @@
+digraph G {
+node209584750[label="209584750
+Maria
+Galvez
+urko1234"];
+node209584750->node201403877;
+node201403877[label="201403877
+Ebany
+Larios
+qwerty12"];
+node0[label="fecha: 2023-02-28 hora:00:58:15"];
+node201403877->node0;
+node201403877->node201709018;
+node201709018[label="201709018
+Cristian
+Suy
+cris1234"];
+node201709018->node201780044;
+node201780044[label="201780044
+Leonardo
+Martinez
+leo1234"];
+node1[label="fecha: 2023-02-28 hora:00:57:05"];
+node201780044->node1;
+node2[label="fecha: 2023-02-28 hora:00:58:39"];
+node1->node2;
+}
