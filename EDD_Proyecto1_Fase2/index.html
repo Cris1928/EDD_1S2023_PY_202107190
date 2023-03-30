@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="./Css/style.css">
+
+
+    <title>Moviecats</title>
+    <!-- importación de bootstrap 5.0.2 utilizado para el login src --> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!--importación de bootstrap 4.0.0 utilizado para el div de administrador-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- importacion de bootstrap 4.7.0 para mostrar las categorias -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+
+    <!-- importacion de estilos para la tabla -->
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css" rel="stylesheet" />
+
+</head>
+
+<style>
+    #mostrar-grafo-abb {
+        margin: 0 auto;
+    }
+</style>
+
+<body>
+
+    <!-- Area para el login-->
+    <div id="login" style="display: block;">
+
+        <section class="vh-100">
+            <div class="container-fluid h-custom">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-md-9 col-lg-6 col-xl-5">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw1.webp"
+                            class="img-fluid" alt="Sample image">
+                    </div>
+                    <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                        <form>
+
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <input type="email" id="usser" class="form-control form-control-lg"
+                                    placeholder="Ingrese su nombre de usuario" />
+                                <label class="form-label" for="form3Example3">Nombre de usuario:</label>
+                            </div>
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-3">
+                                <input type="password" id="password" class="form-control form-control-lg"
+                                    placeholder="Ingrese su contraseña" />
+                                <label class="form-label" for="form3Example4">Contraseña</label>
+                            </div>
+
+                            <!-- Checkbox -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="form-check mb-0">
+                                    <input class="form-check-input me-2" type="checkbox" value="" id="check-box" />
+                                    <label class="form-check-label" for="form2Example3">Administrador</label>
+                                </div>
+                            </div>
+
+                            <div class="text-center text-lg-start mt-4 pt-2">
+                                <button type="button" class="btn btn-primary btn-lg"
+                                    style="padding-left: 2.5rem; padding-right: 2.5rem;"
+                                    id="btn-ingresar">Ingresar</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+
+<!-- Area para administrador cerrar-sesion2 -->
+<div id="navbar-administrador" style="display: none;">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">Administrador</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" id="nav-carga-masiva-admin">Admin</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="grafo-avl">Arbol</a>
+                </li>
+                
+            </ul>
+        </div>
+    </nav>
+    <button id="cerrar-sesion" style="float: right; width: 150px; height: 45px;" type="button"
+        class="btn btn-danger">Salir</button>
+
+</div>
+
+
+
+
+
+
+
+<div id="administrador" style="display: none;">  
+<div class="container">
+    <div class="mt-5 mb-5">
+        <h1>Dashboard Admin</h1>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <h5>Subir estudiantes</h5>
+            <hr>
+            <form class="form" onsubmit="loadStudentsForm(event)">
+                <input type="file" id="inputFile" name="inputFile" class="form-control" placeholder="Pos. X">
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-primary w-100">Cargar Alumnos</button>
+                    <a onclick="showAvlGraph()" class="btn btn-primary w-100 mt-3">Gráfica del Arbol</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-8">
+            <h5>Estudiantes cargados </h5>
+            <hr>
+            <form class="form" onsubmit="showStudentsForm(event)">
+                <div class="row">
+                    <div class="col-8">
+                        <select id="traversal" name="traversal" class="form-select">
+                            <option selected disabled>Seleccionar Recorrido</option>
+                            <option value="inOrder">In Order</option>
+                            <option value="preOrder">Pre Order</option>
+                            <option value="postOrder">Post Order</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary w-100">Mostrar</button>    
+                    </div>
+                </div>
+            </form>
+            
+            <div id="studentsTable">
+                <table class="table text-light">
+                    <thead>
+                        <tr>
+                            <th scope="col " style="color:black">Carnet</th>
+                            <th scope="col" style="color:black">Nombre</th>
+                            <th scope="col" style="color:black">Contraseña</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div id="mostrar-grafo-avl" style="display: none;">
+    <!-- Arbol -->
+    <div class="estilo-grafo">
+        <div class="estilo-grafo2" id="descargar-AVL">
+            <div class="Titulos">
+                <h1>ESTUIDIANTES - AVL</h1>
+            </div>
+            <div class="container mt-5">
+                <hr>
+                <img id="graph">
+            </div>
+
+        </div>
+        <button type="button" class="btn btn-outline-success alineacion" id="btn-download-avl">Download</button>
+    </div>
+    
+</div>
+
+<!-- AREA DEL USUARIO -->
+<div id="navbar-usuario" style="display: none;">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">Usuario</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" id="vista-peliculas">USUARIO</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="vista-actores">Reporte de carpetas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="vista-categorias">Reporte de archivos</a>
+                </li>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <button id="cerrar-sesion2" style="float: right; width: 150px; height: 45px;" type="button"
+        class="btn btn-danger">Salir</button>
+
+</div>
+
+
+
+
+
+<div id="usuario" style="display: none;">
+    <div class="container text-light py-5">
+        <h1 class="text-center" style="color:black">Usuario</h1>
+        <hr>
+        <div class="row">
+            <div class="col-4 p-5">
+                <h5 style="color:black">Nueva Carpeta</h5>
+                <hr>
+                <form class="form" onsubmit="crearCarpeta(event)">
+                    <input type="text" id="folderName" name="folderName" class="form-control" placeholder="Nombre de Carpeta">
+                    <div class="form-group mt-4">
+                        <button type="submit" class="btn btn-primary w-100">Crear</button>
+                    </div>
+                </form>
+                <a onclick="showGraph()" class="btn btn-primary w-100 mt-3">Gráfica del Arbol</a>
+            </div>
+            <div class="col-8 p-5">
+                <h5 class="text-center" style="color:black">Archivos de Carpeta</h5>
+                <hr>
+                <div class="row">
+                    <div class="col-2" style="color:black">
+                        Ruta Actual
+                    </div>
+                    <div class="col-6">
+                        <input type="text" id="path" name="path"  class="form-control" disabled value="/" />
+                    </div>
+                    <div class="col-4" >
+                        <button type="button" onclick="retornarInicio()" class="btn btn-primary w-100">Inicio</button>    
+                    </div>
+                </div>
+                <div class="row mt-4" id="carpetas">
+                    <!-- MOSTRAR LAS CARPETAS index-->
+                    <!-- <div class="col-2 folder" onclick="">
+                        <img src="./imgs/folder.png" width="100%"/>
+                        <p class="h6"> Nombre de Carpeta</p>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+ <!--
+        <div class="ROW">
+            <h1>Reporte de Árbol N-ario</h1>
+            <hr>
+            <img id="graph">
+        </div>
+-->
+
+    </div>
+
+</div>
+
+
+
+
+
+
+        <!-- importaciones de bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <!-- importación de los archivos de la carpeta de JAvaScript -->
+    <script type="module" src="./JavaScript/Carga masiva.js"></script>
+    <script type="module" src="./JavaScript/main.js"></script>
+
+    <!-- importaciones del d3 graphviz -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+    <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.min.js"></script>
+
+    <!-- importacion scripts para las tablas -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"></script>
+
+
+    <!-- importacion de scripts para descargar los grafos -->
+    <script src="https://superal.github.io/canvas2image/canvas2image.js "></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+ <!-- Librerias-->
+ <script src="./lib/cycle.js"></script>
+ <!-- Importar Estructuras -->
+ <script src="./JavaScript/avl-tree.js"></script>
+ <!-- Importar Archivo Principal -->
+ <script src="./JavaScript/index.js"></script>
+ <script src="./JavaScript/index2.js"></script>
+ <script src="./JavaScript/n-ary-tree.js"></script>
+
+
+
+
+</body>
+
+</html>
