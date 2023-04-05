@@ -1,7 +1,6 @@
 // let NaryTree = require('./structures/n-ary-tree');
 
 
-let tree =  new Tree();
 
 function crearCarpeta(e){
     e.preventDefault();
@@ -31,3 +30,4 @@ function showGraph(){
     let body = `digraph G { ${tree.graph()} }`
     $("#graph").attr("src", url + body);
 }
+

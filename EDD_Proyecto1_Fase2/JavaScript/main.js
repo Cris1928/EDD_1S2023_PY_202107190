@@ -1,3 +1,4 @@
+import{avl} from './Carga_masiva.js';
 document.getElementById("btn-ingresar").onclick = login
 document.getElementById("cerrar-sesion").onclick = cerrarSesion
 document.getElementById("cerrar-sesion2").onclick = cerrarSesion
@@ -26,6 +27,8 @@ function login() {
         document.getElementById("administrador").style.display = "block"
         document.getElementById("mostrar-grafo-avl").style.display = "none"
         document.getElementById("navbar-usuario").style.display = "none"
+        document.getElementById("usuario").style.display = "none"
+
      
     }
     //agregar metodo local storage
@@ -38,7 +41,9 @@ function login() {
         document.getElementById("navbar-usuario").style.display = "block"
         document.getElementById("usuario").style.display = "block"
 
-    }else if (buscarUsuario(user,pass) === true && bolean === false){
+    }
+   
+   else if (buscarUsuario(user,pass) === true && bolean === false){
         userObtenido = user
         document.getElementById("login").style.display = "none"
         document.getElementById("navbar-administrador").style.display = "none"
@@ -47,6 +52,7 @@ function login() {
         document.getElementById("navbar-usuario").style.display = "block"
         document.getElementById("usuario").style.display = "block"
     }
+
     else {
         alert("Usuario o contraseña incorrectos")
     }
@@ -56,7 +62,6 @@ function login() {
 }
 
 function cerrarSesion() {
-
     document.getElementById("login").style.display = "block"
     document.getElementById("navbar-administrador").style.display = "none"
     document.getElementById("administrador").style.display = "none"
@@ -87,4 +92,21 @@ function mostrarGrafo_AVL() {
 
 }
 
+function buscarUsuario(nombree, passwordd){
+    let temp = localStorage.getItem("avlTree")
+    avl.root = JSON.parse(temp).root;
+    if (nombree !== null && passwordd !== null){
+        let usuario = avl.buscar(nombree, passwordd);
+        return usuario;
+}
 
+}
+
+
+
+function descargarGrafo_AVL() {
+    html2canvas($('#descargar-AVL')[0]).then(function (canvas) {
+        return Canvas2Image.saveAsPNG(canvas);
+        $(".response").append(canvas);
+    });
+}

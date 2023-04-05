@@ -134,19 +134,26 @@
         <div class="col-4">
             <h5>Subir estudiantes</h5>
             <hr>
-            <form class="form" onsubmit="loadStudentsForm(event)">
-                <input type="file" id="inputFile" name="inputFile" class="form-control" placeholder="Pos. X">
-                <div class="form-group mt-4">
-                    <button type="submit" class="btn btn-primary w-100">Cargar Alumnos</button>
-                    <a onclick="showAvlGraph()" class="btn btn-primary w-100 mt-3">Gráfica del Arbol</a>
-                </div>
+            <form>
+                <div class="form-group">
+                <input type="file" id="inputFile" class="form-control-file" placeholder="Pos. X">
+            </div>
             </form>
+            <!-- cambio -->
+            <div class="form-group mt-4">
+                <button class="btn btn-block btn-outline-primary" type="button"
+                            id="btn-cargar-alumnos">Cargar alumnos</button>
+            </div>
+            <div class="form-group mt-4">
+                <button class="btn btn-block btn-outline-primary" type="button"
+                            id="btn-avl">graficas</button>
+            </div>
         </div>
         <div class="col-8">
             <h5>Estudiantes cargados </h5>
             <hr>
-            <form class="form" onsubmit="showStudentsForm(event)">
-                <div class="row">
+            <form class="form">
+                <div class="row" id="est">
                     <div class="col-8">
                         <select id="traversal" name="traversal" class="form-select">
                             <option selected disabled>Seleccionar Recorrido</option>
@@ -155,12 +162,12 @@
                             <option value="postOrder">Post Order</option>
                         </select>
                     </div>
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-primary w-100">Mostrar</button>    
-                    </div>
+                 
                 </div>
             </form>
-            
+            <div class="col-4">
+                <button type="button" class="btn btn-primary w-100" id="btn-primaryT">Mostrar</button>    
+            </div>
             <div id="studentsTable">
                 <table class="table text-light">
                     <thead>
@@ -187,10 +194,7 @@
             <div class="Titulos">
                 <h1>ESTUIDIANTES - AVL</h1>
             </div>
-            <div class="container mt-5">
-                <hr>
-                <img id="graph">
-            </div>
+            <div id="arbol-AVL"></div>
 
         </div>
         <button type="button" class="btn btn-outline-success alineacion" id="btn-download-avl">Download</button>
@@ -298,7 +302,7 @@
         crossorigin="anonymous"></script>
 
     <!-- importación de los archivos de la carpeta de JAvaScript -->
-    <script type="module" src="./JavaScript/Carga masiva.js"></script>
+    <script type="module" src="./JavaScript/Carga_masiva.js"></script>
     <script type="module" src="./JavaScript/main.js"></script>
 
     <!-- importaciones del d3 graphviz -->
@@ -319,12 +323,9 @@
  <!-- Librerias-->
  <script src="./lib/cycle.js"></script>
  <!-- Importar Estructuras -->
- <script src="./JavaScript/avl-tree.js"></script>
- <!-- Importar Archivo Principal -->
- <script src="./JavaScript/index.js"></script>
+
  <script src="./JavaScript/index2.js"></script>
  <script src="./JavaScript/n-ary-tree.js"></script>
-
 
 
 
