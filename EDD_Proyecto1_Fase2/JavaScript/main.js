@@ -6,10 +6,14 @@ document.getElementById("cerrar-sesion2").onclick = cerrarSesion
 /** Funcionalidades para los botones de la navbar del administrador */
 document.getElementById("nav-carga-masiva-admin").onclick = mostrarCargaMasiva
 document.getElementById("grafo-avl").onclick = mostrarGrafo_AVL
+document.getElementById("vista-carpetas").onclick = mostrarArbol_N
+document.getElementById("vista-usuarios").onclick = mostrarUsuario
 
 var user, pass, check, bolean
 
-var userObtenido
+let userObtenido
+window.userObtenido = '';
+
 function login() {
     bolean = false
     user = document.getElementById("usser").value
@@ -21,36 +25,41 @@ function login() {
     }
 
     if (user === "admin" && pass === "admin" && bolean === true) {
-        userObtenido = user
+        window.userObtenido = user
+      //  module.exports = userObtenido
         document.getElementById("login").style.display = "none"
         document.getElementById("navbar-administrador").style.display = "block"
         document.getElementById("administrador").style.display = "block"
         document.getElementById("mostrar-grafo-avl").style.display = "none"
         document.getElementById("navbar-usuario").style.display = "none"
         document.getElementById("usuario").style.display = "none"
+        document.getElementById("arbol-n").style.display = "none"
 
      
     }
     //agregar metodo local storage
     else if (user === "User1" && pass === "123" && bolean === false) {
-        userObtenido = user
+        window.userObtenido = user
+     //   module.exports = userObtenido
         document.getElementById("login").style.display = "none"
         document.getElementById("navbar-administrador").style.display = "none"
         document.getElementById("administrador").style.display = "none"
         document.getElementById("mostrar-grafo-avl").style.display = "none"
         document.getElementById("navbar-usuario").style.display = "block"
         document.getElementById("usuario").style.display = "block"
+        document.getElementById("arbol-n").style.display = "none"
 
     }
    
    else if (buscarUsuario(user,pass) === true && bolean === false){
-        userObtenido = user
+    window.userObtenido  = user
         document.getElementById("login").style.display = "none"
         document.getElementById("navbar-administrador").style.display = "none"
         document.getElementById("administrador").style.display = "none"
         document.getElementById("mostrar-grafo-avl").style.display = "none"
         document.getElementById("navbar-usuario").style.display = "block"
         document.getElementById("usuario").style.display = "block"
+        document.getElementById("arbol-n").style.display = "none"
     }
 
     else {
@@ -67,7 +76,9 @@ function cerrarSesion() {
     document.getElementById("administrador").style.display = "none"
     document.getElementById("mostrar-grafo-avl").style.display = "none"
     document.getElementById("navbar-usuario").style.display = "none"
-   
+    document.getElementById("usuario").style.display = "none"
+    document.getElementById("arbol-n").style.display = "none"
+    
 
 
     document.getElementById("usser").value = ""
@@ -82,6 +93,9 @@ function mostrarCargaMasiva() {
     document.getElementById("navbar-administrador").style.display = "block"
     document.getElementById("administrador").style.display = "block"
     document.getElementById("mostrar-grafo-avl").style.display = "none"
+    document.getElementById("usuario").style.display = "none"
+    document.getElementById("arbol-n").style.display = "none"
+    document.getElementById("arbol-n").style.display = "none"
 }
 
 function mostrarGrafo_AVL() {
@@ -89,6 +103,32 @@ function mostrarGrafo_AVL() {
     document.getElementById("navbar-administrador").style.display = "block"
     document.getElementById("administrador").style.display = "none"
     document.getElementById("mostrar-grafo-avl").style.display = "block"
+    document.getElementById("usuario").style.display = "none"
+    document.getElementById("arbol-n").style.display = "none"
+    document.getElementById("arbol-n").style.display = "none"
+}
+
+function mostrarArbol_N(){
+
+    document.getElementById("login").style.display = "none"
+    document.getElementById("navbar-administrador").style.display = "none"
+    document.getElementById("administrador").style.display = "none"
+    document.getElementById("mostrar-grafo-avl").style.display = "none"
+    document.getElementById("navbar-usuario").style.display = "block"
+    document.getElementById("usuario").style.display = "none"
+    document.getElementById("arbol-n").style.display = "block"
+
+}
+
+function mostrarUsuario(){
+
+    document.getElementById("login").style.display = "none"
+    document.getElementById("navbar-administrador").style.display = "none"
+    document.getElementById("administrador").style.display = "none"
+    document.getElementById("mostrar-grafo-avl").style.display = "none"
+    document.getElementById("navbar-usuario").style.display = "block"
+    document.getElementById("usuario").style.display = "block"
+    document.getElementById("arbol-n").style.display = "none"
 
 }
 
@@ -110,3 +150,5 @@ function descargarGrafo_AVL() {
         $(".response").append(canvas);
     });
 }
+
+export {userObtenido}
