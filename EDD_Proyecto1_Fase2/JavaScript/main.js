@@ -1,5 +1,7 @@
 import{avl} from './Carga_masiva.js';
 import {Tree} from './n-ary-tree.js';
+//const flatted = require('flatted');
+import { ListaCircular } from "./Lista_circularS.js";
 console.log("nuevo avl importad" )
 document.getElementById("btn-ingresar").onclick = login
 document.getElementById("cerrar-sesion").onclick = cerrarSesion
@@ -10,6 +12,7 @@ document.getElementById("nav-carga-masiva-admin").onclick = mostrarCargaMasiva
 document.getElementById("grafo-avl").onclick = mostrarGrafo_AVL
 document.getElementById("vista-carpetas").onclick = mostrarArbol_N
 document.getElementById("vista-usuarios").onclick = mostrarUsuario
+document.getElementById("vista-archivos").onclick = mostrarBitacora
 
 var user, pass, check, bolean
 let contra=null;
@@ -18,10 +21,11 @@ window.temporal=null;
 let userObtenido;
 window.userObtenido = '';
 let treee;
-let s;
 window.treee = null;
+window.lis = null;
 window.s=null;
 window.temporal=avl;
+
 //window.temporada=JSON.parse(localStorage.getItem("avlTree"));
 function login() {
     bolean = false
@@ -43,6 +47,7 @@ function login() {
         document.getElementById("navbar-usuario").style.display = "none"
         document.getElementById("usuario").style.display = "none"
         document.getElementById("arbol-n").style.display = "none"
+        document.getElementById("arbol-b").style.display = "none"
 
      
     }
@@ -57,6 +62,7 @@ function login() {
         document.getElementById("navbar-usuario").style.display = "block"
         document.getElementById("usuario").style.display = "block"
         document.getElementById("arbol-n").style.display = "none"
+        document.getElementById("arbol-b").style.display = "none"
 
     }
    
@@ -71,6 +77,7 @@ function login() {
         document.getElementById("navbar-usuario").style.display = "block"
         document.getElementById("usuario").style.display = "block"
         document.getElementById("arbol-n").style.display = "none"
+        document.getElementById("arbol-b").style.display = "none"
     }
 
     else {
@@ -89,6 +96,7 @@ function cerrarSesion() {
     document.getElementById("navbar-usuario").style.display = "none"
     document.getElementById("usuario").style.display = "none"
     document.getElementById("arbol-n").style.display = "none"
+    document.getElementById("arbol-b").style.display = "none"
     
 
 
@@ -105,12 +113,16 @@ function cerrarSesion2() {
     document.getElementById("navbar-usuario").style.display = "none"
     document.getElementById("usuario").style.display = "none"
     document.getElementById("arbol-n").style.display = "none"
+    document.getElementById("arbol-b").style.display = "none"
  //   localStorage.setItem("avlN", JSON.stringify(window.treee))
     console.log(document.getElementById("usser").value)
     console.log(document.getElementById("password").value)
     console.log("cierra")
     console.log(window.treee.root)
     avl.setRoot(document.getElementById("usser").value,contra,JSON.stringify(window.treee))
+   // console.log(JSON.stringify(window.lis))
+   // const json = stringify(window.lis)JSON.decycle(
+    avl.setLista(document.getElementById("usser").value,contra,JSON.stringify(JSON.decycle(window.lis)))
     console.log("para ver el avl")
     console.log(avl)
     localStorage.setItem("avlTree", JSON.stringify(avl))
@@ -132,6 +144,7 @@ function mostrarCargaMasiva() {
     document.getElementById("usuario").style.display = "none"
     document.getElementById("arbol-n").style.display = "none"
     document.getElementById("arbol-n").style.display = "none"
+    document.getElementById("arbol-b").style.display = "none"
 }
 
 function mostrarGrafo_AVL() {
@@ -142,6 +155,7 @@ function mostrarGrafo_AVL() {
     document.getElementById("usuario").style.display = "none"
     document.getElementById("arbol-n").style.display = "none"
     document.getElementById("arbol-n").style.display = "none"
+    document.getElementById("arbol-b").style.display = "none"
 }
 
 function mostrarArbol_N(){
@@ -153,6 +167,7 @@ function mostrarArbol_N(){
     document.getElementById("navbar-usuario").style.display = "block"
     document.getElementById("usuario").style.display = "none"
     document.getElementById("arbol-n").style.display = "block"
+    document.getElementById("arbol-b").style.display = "none"
 
 }
 
@@ -165,32 +180,29 @@ function mostrarUsuario(){
     document.getElementById("navbar-usuario").style.display = "block"
     document.getElementById("usuario").style.display = "block"
     document.getElementById("arbol-n").style.display = "none"
+    document.getElementById("arbol-b").style.display = "none"
 
+}
+
+function mostrarBitacora(){
+    document.getElementById("login").style.display = "none"
+    document.getElementById("navbar-administrador").style.display = "none"
+    document.getElementById("administrador").style.display = "none"
+    document.getElementById("mostrar-grafo-avl").style.display = "none"
+    document.getElementById("navbar-usuario").style.display = "block"
+    document.getElementById("usuario").style.display = "none"
+    document.getElementById("arbol-n").style.display = "none"
+    document.getElementById("arbol-b").style.display = "block"
 }
 
 function buscarUsuario(nombree, passwordd){
     let tres = new Tree();
+    let list = new ListaCircular();
     let temp = localStorage.getItem("avlTree")
     //console.log(temp)
     avl.root = JSON.parse(temp).root;
     if (nombree !== null && passwordd !== null){
-      /*  console.log(window.temporada)
-        window.temporada.forEach(e => {
-            //  let tree = new Tree();
-              //console.log(e.carpeta_raiz)
-              if(window.treee!=null){
-              e.carpeta_raiz=JSON.stringify(window.treee.root)
-              console.log(JSON.parse(e.carpeta_raiz).children) setRoot
-            }
-          
-          })*/
-
-
-
-          /*
-          if(window.treee!=null){
-            localStorage.setItem("avlN", JSON.stringify(window.treee))
-          }*/
+      
         console.log("entra")
         let usuario = avl.buscar(nombree, passwordd);
 
@@ -200,6 +212,41 @@ function buscarUsuario(nombree, passwordd){
         window.treee=JSON.parse(vari);
         //window.treee=JSON.parse(vari).root;
         console.log(window.treee);
+        let v=avl.returnLista(nombree, passwordd);
+        console.log(v);
+        window.lis=JSON.retrocycle(JSON.parse(v));
+        console.log(window.lis);
+        Object.defineProperty(window.lis, 'estaVacia', {
+            value: list.estaVacia,
+            writable: true,
+            enumerable: true,
+            configurable: true
+            });
+            Object.defineProperty(window.lis, 'agregarAlinicio', {
+                value: list.agregarAlinicio,
+                writable: true,
+                enumerable: true,
+                configurable: true
+                });
+                Object.defineProperty(window.lis, 'recorrerLista', {
+                    value: list.recorrerLista,
+                    writable: true,
+                    enumerable: true,
+                    configurable: true
+                    });
+    
+                    Object.defineProperty(window.lis, 'graficarDot', {
+                        value: list.graficarDot,
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                        });
+        
+
+
+
+
+
        // window.treee=tres;
         console.log("igualan1")
         Object.defineProperty(window.treee, 'insert', {
@@ -229,7 +276,7 @@ function buscarUsuario(nombree, passwordd){
                         enumerable: true,
                         configurable: true
                         });
-        console.log(window.treee);
+       // console.log(window.treee);
 
         return usuario; 
 }

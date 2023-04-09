@@ -1,124 +1,53 @@
  
-// CLASE NODO 
-/*
-class Tnode{
-    
-    constructor(folderName){
-        this.folderName = folderName;
-        this.files = [];
-        this.children = []; // TODOS LOS NODOS HIJOS
-        this.id = null; // PARA GENERAR LA GRÁFICA
+ class NodoC{
+    constructor(accion,direccion,fecha,hora){
+        this._accion = accion;
+        this._direccion = direccion;
+        this._fecha = fecha;
+        this._hora = hora;
+    }
+
+    get accion(){
+        return this._accion;
+    }
+
+    get direccion(){
+        return this._direccion;
+    }
+
+    get fecha(){
+        return this._fecha;
+    }
+
+    get hora(){
+        return this._hora;
+    }
+
+    set accion(accion){
+        this._accion = accion;
+    }
+
+    set direccion(direccion){
+        this._direccion = direccion;
+    }
+
+    set fecha(fecha){
+        this._fecha = fecha;
+    }
+
+    set hora(hora){
+        this._hora = hora;
+    }
+
+    toString(){
+        return `
+        Accion: ${this._accion}
+        Direccion: ${this._direccion}
+        Fecha: ${this._fecha}
+        Hora: ${this._hora}
+        `
     }
 }
-
-
-class Tree{
-    
-    constructor(){
-        this.root = new Tnode('/');
-        this.root.id = 0;
-        this.size = 1; // Para generar los ids
-    }
-
-    insert(folderName, fatherPath){ 
-       console.log(window.userObtenido);
-        let newNode =  new Tnode(folderName);
-        let fatherNode = this.getFolder(fatherPath);
-        if(fatherNode){
-            this.size += 1;
-            newNode.id = this.size;
-            fatherNode.children.push(newNode);
-        }else{
-            console.log("Ruta no existe");
-        }
-    }
-
-
-    getFolder(path){
-        // Padre sea una '/'
-        // console.log(path);
-        if(path == this.root.folderName){
-            return this.root;
-        }else{
-            let temp = this.root;
-            let folders = path.split('/');
-            folders = folders.filter( str => str !== '');
-            let folder = null;
-            while(folders.length > 0){
-                let currentFolder = folders.shift()
-                folder = temp.children.find(child => child.folderName == currentFolder);
-                if(typeof folder == 'undefined' || folder == null){
-                    return null;
-                }
-                temp = folder;
-            }
-            return temp;
-        }
-    }
-
-    graph(){
-        let nodes = "";
-        let connections = "";
-
-        let node = this.root;
-        let queue = [];
-        queue.push(node);
-        while(queue.length !== 0){
-            let len = queue.length;
-            for(let i = 0; i < len; i ++){
-                let node = queue.shift();
-                nodes += `S_${node.id}[label="${node.folderName}"];\n`;
-                node.children.forEach( item => {
-                    connections += `S_${node.id} -> S_${item.id};\n`
-                    queue.push(item);
-                });
-            }
-        }
-        return 'node[shape="record"];\n' + nodes +'\n'+ connections;
-    }
-
-    getHTML(path){
-        let node = this.getFolder(path);
-        let code = "";
-        node.children.map(child => {
-            code += ` <div class="col-2 folder" onclick="entrarCarpeta('${child.folderName}')">
-                        <img src="./img/folder.png" width="100%"/>
-                        <p class="h6 text-center">${child.folderName}</p>
-                    </div>`
-        })
-        // console.log(node.files)
-        node.files.map(file => {
-            if(file.type === 'text/plain'){
-                let archivo = new Blob([file.content], file.type);
-                const url = URL.createObjectURL(archivo);
-                code += `
-                        <div class="col-2 folder">
-                        <img src="./img/file.png" width="100%"/>
-                        <p class="h6 text-center">
-                            <a href="${url}" download>
-                                ${file.name}
-                            </a>
-                        </p>
-                    </div>
-                `
-            }else{
-                code += ` <div class="col-2 folder">
-                        <img src="./img/imge.png" width="100%"/>
-                        <p class="h6 text-center">
-                            <a href="${file.content}" download>
-                                ${file.name}
-                            </a>
-                        </p>
-                    </div>`
-            }
-        })
-        return code;
-    }
-
-
-}
-*/
-
 
 //------------------------index.js------------------------
 
@@ -137,15 +66,39 @@ console.log(window.treee)
 
 
 function crearCarpeta(e){
+    const now = new Date();
+const hours = now.getHours();
+const minutes = now.getMinutes();
+const seconds = now.getSeconds();
+const dia = now.getDate();
+const mes = now.getMonth();
+const year = now.getFullYear();
+
+
+
+
     e.preventDefault();
     let folderName =  $('#folderName').val();
     let path =  $('#path').val();
     window.treee.insert(folderName, path);
     alert("Todo bien!")
+    console.log("datos")
+    console.log(folderName)
+    console.log(path)
+    window.lis.agregarAlinicio(new NodoC("Accion: se creó carpeta",folderName,"Fecha: "+dia+"/"+mes+"/"+year,"Hora: "+hours+":"+minutes+":"+seconds))
     $('#carpetas').html(window.treee.getHTML(path))
 }
 
 function eliminarCarpeta(e){
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    const dia = now.getDate();
+    const mes = now.getMonth();
+    const year = now.getFullYear();
+
+
     e.preventDefault();
     let folderName =  $('#folderName').val();
     let path =  $('#path').val();
@@ -153,6 +106,7 @@ function eliminarCarpeta(e){
     let fatherNode = window.treee.getFolder(fatherPath);
     fatherNode.children = fatherNode.children.filter( child => child.folderName != folderName);
     alert("Todo bien!")
+    window.lis.agregarAlinicio(new NodoC("Accion: se eliminó carpeta",folderName,"Fecha: "+dia+"/"+mes+"/"+year,"Hora: "+hours+":"+minutes+":"+seconds))
     $('#carpetas').html(window.treee.getHTML(path))
 }
  
@@ -176,11 +130,11 @@ function showTreeGraph(){
 }
 
 function showMatrixGraph(){
-    let path = $('#path').val();
+   // let path = $('#path').val();
     let url = 'https://quickchart.io/graphviz?graph=';
-    console.log(window.treee.matrixGrpah(path))
-    // let body = `digraph G { ${tree.matrixGrpah(path)} }`
-    $("#graph").attr("src", url + body);
+   // console.log(window.treee.matrixGrpah(path))
+ body = `digraph G { ${window.lis.graficarDot()} }`
+    $("#graphh").attr("src", url + body);
 }
 
 
@@ -192,6 +146,18 @@ const toBase64 = file => new Promise((resolve, reject) => {
 });
 
 const subirArchivo =  async (e) => {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    const dia = now.getDate();
+    const mes = now.getMonth();
+    const year = now.getFullYear();
+
+
+
+
+
     e.preventDefault();
     const formData = new FormData(e.target);
     const form = Object.fromEntries(formData);
@@ -210,6 +176,7 @@ const subirArchivo =  async (e) => {
             })
             $('#carpetas').html(window.treee.getHTML(path));
         };
+        window.lis.agregarAlinicio(new NodoC("Accion: se creo archivo",form.fileName,"Fecha: "+dia+"/"+mes+"/"+year,"Hora: "+hours+":"+minutes+":"+seconds))
     }else{
         // IMÁGENES O PDF 
         let parseBase64 = await toBase64(form.file);
@@ -222,7 +189,9 @@ const subirArchivo =  async (e) => {
         // console.log(parseBase64)
         // $("#imagenSubida").attr("src", imgBase64); 
         // console.log(await toBase64(form.file));
+        window.lis.agregarAlinicio(new NodoC("Accion: se creo archivo",form.fileName,"Fecha: "+dia+"/"+mes+"/"+year,"Hora: "+hours+":"+minutes+":"+seconds))
     }
+    
     alert('Archivo Subido!')
 
 }

@@ -1,8 +1,11 @@
 import {AVL} from "./Estudiantes.js";
 //import { userObtenido } from "./main.js";btn-primaryT
 import {Tree} from './n-ary-tree.js';
+import { ListaCircular } from "./Lista_circularS.js";
 let avl = new AVL();
 console.log("nuevo avl")
+//window.lista= new ListaCircular();
+
 var contenidoEstudiantesJSON = []
 window.addEventListener("load", () => {
     document
@@ -33,7 +36,6 @@ window.addEventListener("load", () => {
 
 function abrirEstudiantesJSON(evento) {  
     let tree = new Tree();
-    
 localStorage.setItem("avlN", JSON.stringify(tree))
     let archivo = evento.target.files[0]
   // alert(evento.target) JSON.stringify
@@ -65,6 +67,7 @@ localStorage.setItem("avlN", JSON.stringify(tree))
 
 
 function cargarEstudiantes() {
+   let lista= new ListaCircular();
     window.temporada=contenidoEstudiantesJSON;
    // alert("Cargando Estudiantes...!!")
    /*contenidoEstudiantesJSON.forEach(e => {
@@ -75,7 +78,7 @@ function cargarEstudiantes() {
     contenidoEstudiantesJSON.forEach(e => {
       //  let tree = new Tree();
         
-        avl.insertar(e.carnet, e.nombre,e.password,e.carpeta_raiz)
+        avl.insertar(e.carnet, e.nombre,e.password,e.carpeta_raiz,JSON.stringify(lista))
 
     
     })
