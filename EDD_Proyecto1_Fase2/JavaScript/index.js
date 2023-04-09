@@ -1,8 +1,6 @@
- //let NaryTree = require('./n-ary-tree.js');
-
-
+ 
 // CLASE NODO 
-//const userObtenido = require('./main.js');
+/*
 class Tnode{
     
     constructor(folderName){
@@ -119,7 +117,7 @@ class Tree{
 
 
 }
-
+*/
 
 
 //------------------------index.js------------------------
@@ -129,14 +127,22 @@ class Tree{
 
 
 
-let tree =  new Tree();
+let tree = window.treee
+/*
+console.log("treee eeeee")
+console.log(tree)
+console.log(window.treee)
+*/
+
+
+
 function crearCarpeta(e){
     e.preventDefault();
     let folderName =  $('#folderName').val();
     let path =  $('#path').val();
-    tree.insert(folderName, path);
+    window.treee.insert(folderName, path);
     alert("Todo bien!")
-    $('#carpetas').html(tree.getHTML(path))
+    $('#carpetas').html(window.treee.getHTML(path))
 }
 
 function eliminarCarpeta(e){
@@ -144,35 +150,35 @@ function eliminarCarpeta(e){
     let folderName =  $('#folderName').val();
     let path =  $('#path').val();
     let fatherPath = path == '/'? path : path.substring(0, path.lastIndexOf("/"));
-    let fatherNode = tree.getFolder(fatherPath);
+    let fatherNode = window.treee.getFolder(fatherPath);
     fatherNode.children = fatherNode.children.filter( child => child.folderName != folderName);
     alert("Todo bien!")
-    $('#carpetas').html(tree.getHTML(path))
+    $('#carpetas').html(window.treee.getHTML(path))
 }
-
+ 
 function entrarCarpeta(folderName){
     let path = $('#path').val();
     let curretPath = path == '/'? path + folderName : path + "/"+ folderName;
     console.log(curretPath)
     $('#path').val(curretPath);
-    $('#carpetas').html(tree.getHTML(curretPath))
+    $('#carpetas').html(window.treee.getHTML(curretPath))
 }
 
 function retornarInicio(){
     $('#path').val("/");
-    $('#carpetas').html(tree.getHTML("/"))
+    $('#carpetas').html(window.treee.getHTML("/"))
 }
 
 function showTreeGraph(){
     let url = 'https://quickchart.io/graphviz?graph=';
-    let body = `digraph G { ${tree.graph()} }`
+    let body = `digraph G { ${window.treee.graph()} }`
     $("#graph").attr("src", url + body);
 }
 
 function showMatrixGraph(){
     let path = $('#path').val();
     let url = 'https://quickchart.io/graphviz?graph=';
-    console.log(tree.matrixGrpah(path))
+    console.log(window.treee.matrixGrpah(path))
     // let body = `digraph G { ${tree.matrixGrpah(path)} }`
     $("#graph").attr("src", url + body);
 }
@@ -197,22 +203,22 @@ const subirArchivo =  async (e) => {
         fr.readAsText(form.file);
         fr.onload = () => { 
             // CARGAR ARCHIVO A LA MATRIZ
-            tree.getFolder(path).files.push({
+            window.treee.getFolder(path).files.push({
                 name: form.fileName, 
                 content: fr.result, 
                 type: form.file.type
             })
-            $('#carpetas').html(tree.getHTML(path));
+            $('#carpetas').html(window.treee.getHTML(path));
         };
     }else{
         // IMÁGENES O PDF 
         let parseBase64 = await toBase64(form.file);
-        tree.getFolder(path).files.push({
+        window.treee.getFolder(path).files.push({
             name: form.fileName, 
             content: parseBase64, 
             type: form.file.type
         })
-        $('#carpetas').html(tree.getHTML(path));
+        $('#carpetas').html(window.treee.getHTML(path));
         // console.log(parseBase64)
         // $("#imagenSubida").attr("src", imgBase64); 
         // console.log(await toBase64(form.file));

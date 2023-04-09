@@ -1,9 +1,13 @@
+
+//----------------------CLASES PARA EL ARBOL AVL----------------------//
+//import {Tree} from './n-ary-tree.js';
 export class Estudiante{
     constructor(carnet, nombre, password,carpeta){
         this._carnet = carnet
         this._nombre = nombre
         this._password = password
         this._carpeta = carpeta
+
     }
     get carnet(){
         return this._carnet
@@ -26,6 +30,7 @@ export class Estudiante{
     set password(password){
         this._password = password
     }
+
     set carpeta(carpeta){
         this._carpeta = carpeta
     }
@@ -46,23 +51,44 @@ export class Estudiante{
 }
 
 class Nodo {
-    constructor(dato,valor,pass) {
+  
+    constructor(dato,valor,pass,tree) {
         this.dato = dato;
         this.valor = valor;
         this.pass = pass;
+        this.tree = tree;
         this.izq = null;
         this.der = null;
         this.altura = 0;
     }
+
+   
+
 }
+
+
 
 export class AVL{
   constructor(){
       this.root = null;
   }
 
-  insertar(dato,valor,pass){
-      this.root = this._insert(this.root,dato,valor,pass);
+
+
+
+
+
+
+
+//--------------------------------------------------------------------------------------------------
+  prueba(n){
+
+      console.log(n);
+  }
+
+  insertar(dato,valor,pass,tree){
+   // console.log(tree);
+      this.root = this._insert(this.root,dato,valor,pass,tree);
   }
   buscar(indice,pass) {
     return this._buscar(this.root, indice,pass);
@@ -70,6 +96,25 @@ export class AVL{
 
   eliminar(dato){
       this.root = this._eliminar(this.root,dato);
+  }
+  CambiarPass(indice,pass){
+    this._CambiarPass(this.root,indice,pass);
+  }
+  _CambiarPass(pivote,indice,pass){
+    if (pivote !== null) {
+      if (pivote.valor=== indice) {
+        pivote.pass=pass;
+        return pivote.pass;
+      }
+      if (pivote.izq !== null) {
+        return this._CambiarPass(pivote.izq, indice,pass);
+      } else {
+        return this._CambiarPass(pivote.der, indice,pass);
+      }
+    }
+    else{
+      return null
+    }
   }
 
   printIO() {
@@ -83,7 +128,76 @@ export class AVL{
   printPOS() {
     this._recorridoPostOrden(this.root);
   }
+  
+  setRoot(valor,pass,tree){
+    console.log(tree);
+  return this._setRoot(this.root,valor,pass,tree);
+  }
 
+
+  returnRoot(valor, pass){
+      return this._returnRoot(this.root,valor,pass);
+  }
+
+  _returnRoot(pivote, indice,pas) {
+    if (pivote !== null) {
+      if (pivote.valor=== indice && pivote.pass===pas) {
+        console.log("imprimo aqui el tree")
+        console.log(pivote.tree)
+        return pivote.tree;
+      }
+      if (pivote.izq !== null) {
+        return this._returnRoot(pivote.izq, indice,pas);
+      } else {
+        return this._returnRoot(pivote.der, indice,pas);
+      }
+    }
+    else{
+      return null
+    }
+  }
+
+
+  _setRoot(pivote, indice,pas,tree) {
+    if (pivote !== null) {
+      if (pivote.valor=== indice && pivote.pass===pas) {
+      pivote.tree=tree;
+    //  console.log(pivote.tree.retornarRoot);
+    console.log("imprimo aqui")
+      console.log(pivote.tree);
+        return pivote.tree;
+      }
+      if (pivote.izq !== null) {
+        return this._setRoot(pivote.izq, indice,pas,tree);
+      } else {
+        return this._setRoot(pivote.der, indice,pas,tree);
+      }
+    }
+    else{
+      return null
+    }
+  }
+
+
+
+
+
+  //---------------------------------------------------------------------
+
+/*
+  _returnTree(raiz,dato){
+
+      if(raiz == null){
+          return null;
+      }else if(raiz.dato == dato){
+          return raiz.tree;
+      }else if(raiz.dato > dato){
+          return this._returnTree(raiz.izq,dato);
+      }else{
+          return this._returnTree(raiz.der,dato);
+      }
+  }*/
+  
   _MAX(val1, val2) {
     if (val1 > val2) {
       return val1;
@@ -97,6 +211,7 @@ export class AVL{
     }
     return -1;
   }
+
 
   _rotacionIzquierda(pivote) {
     var aux;
@@ -130,12 +245,13 @@ export class AVL{
     return this._rotacionDerecha(pivote);
   }
 
-  _insert(root, dato, valor,pass) {
+  _insert(root, dato, valor,pass,tree) {
     if (root === null) {
-      root = new Nodo(dato, valor,pass);
+      console.log(tree);
+      root = new Nodo(dato, valor,pass,tree);
     } else {
       if (dato < root.dato) {
-        root.izq = this._insert(root.izq, dato, valor,pass);
+        root.izq = this._insert(root.izq, dato, valor,pass,tree);
         if (this._getAltura(root.der) - this._getAltura(root.izq) === -2) {
           if (dato < root.izq.dato) {
             root = this._rotacionIzquierda(root);
@@ -145,7 +261,7 @@ export class AVL{
         }
       } else if (dato > root.dato)  {
         
-          root.der = this._insert(root.der, dato, valor,pass);
+          root.der = this._insert(root.der, dato, valor,pass,tree);
           if (this._getAltura(root.der) - this._getAltura(root.izq) === 2) {
             if (dato > root.der.dato) {
               root = this._rotacionDerecha(root);
@@ -185,9 +301,11 @@ export class AVL{
 
 
   _recorridoInOrden(pivote) {
+   // window.temporada=pivote;
     let row ="";
     if(pivote.izq !== null){
       row += this._recorridoInOrden(pivote.izq);
+     // window.temporada=pivote;
     }//aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
     row += `
     <tr>
@@ -196,9 +314,12 @@ export class AVL{
     <td style="color:black">${pivote.pass}</td>
     </tr>
     `;
+    console.log(pivote.valor);
+    console.log(pivote.tree);
 
     if (pivote.der !== null) {
       row += this._recorridoInOrden(pivote.der);
+      //window.temporada=pivote;
    //   this._recorridoInOrden(pivote.izq);
      // this._recorridoInOrden(pivote.der);
     }

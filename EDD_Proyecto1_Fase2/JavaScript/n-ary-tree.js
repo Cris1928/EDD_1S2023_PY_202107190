@@ -11,11 +11,20 @@ class Tnode{
 }
 
 
-class Tree{
+export class Tree{
     constructor(){
         this.root = new Tnode('/');
         this.root.id = 0;
         this.size = 1; // Para generar los ids
+    }   
+
+   
+
+    prueba(){
+        console.log("prueba");
+    }
+    retornarRoot(){
+        return this.root;
     }
 
     insert(folderName, fatherPath){ 
@@ -79,7 +88,7 @@ class Tree{
         let code = "";
         node.children.map(child => {
             code += ` <div class="col-2 folder" onclick="entrarCarpeta('${child.folderName}')">
-                        <img src="./imgs/folder.png" width="100%"/>
+                        <img src="./img/folder.png" width="100%"/>
                         <p class="h6 text-center">${child.folderName}</p>
                     </div>`
         })
@@ -90,7 +99,7 @@ class Tree{
                 const url = URL.createObjectURL(archivo);
                 code += `
                         <div class="col-2 folder">
-                        <img src="./imgs/imge.png" width="100%"/>
+                        <img src="./img/imge.png" width="100%"/>
                         <p class="h6 text-center">
                             <a href="${url}" download>
                                 ${file.name}
@@ -100,7 +109,7 @@ class Tree{
                 `
             }else{
                 code += ` <div class="col-2 folder">
-                        <img src="./imgs/file.png" width="100%"/>
+                        <img src="./img/file.png" width="100%"/>
                         <p class="h6 text-center">
                             <a href="${file.content}" download>
                                 ${file.name}
@@ -111,19 +120,4 @@ class Tree{
         })
         return code;
     }
-
-
-    // insertFile(path, fileName, content, type){
-    //     let temp = this.getFolder(path);
-    //     temp.matriz.insertHeaderOnly(fileName, content, type);
-    // }    
-
-    // matrixGrpah(path){
-    //     let temp = this.getFolder(path);
-    //     console.log(temp.matriz);
-    //     return temp.matriz.graph();
-    // }
 }
-
-
-// module.exports = Tree;

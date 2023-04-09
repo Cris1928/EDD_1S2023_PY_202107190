@@ -1,7 +1,8 @@
 import {AVL} from "./Estudiantes.js";
 //import { userObtenido } from "./main.js";btn-primaryT
-
+import {Tree} from './n-ary-tree.js';
 let avl = new AVL();
+console.log("nuevo avl")
 var contenidoEstudiantesJSON = []
 window.addEventListener("load", () => {
     document
@@ -25,9 +26,15 @@ window.addEventListener("load", () => {
     document
         .getElementById("btn-primaryT")
         .addEventListener("click", showStudentsForm)
+        
 })
 
+
+
 function abrirEstudiantesJSON(evento) {  
+    let tree = new Tree();
+    
+localStorage.setItem("avlN", JSON.stringify(tree))
     let archivo = evento.target.files[0]
   // alert(evento.target) JSON.stringify
     if (archivo) {
@@ -36,6 +43,15 @@ function abrirEstudiantesJSON(evento) {
             let contenido = e.target.result
         //    console.log(contenido)
             contenidoEstudiantesJSON = JSON.parse(contenido).alumnos;
+
+            //mostrar la raiz de cada estudiante
+            contenidoEstudiantesJSON.forEach(e => {
+               
+                
+              e.carpeta_raiz= localStorage.getItem("avlN")
+             // console.log(e.carpeta_raiz)
+            })
+
             
         }
         reader.readAsText(archivo)
@@ -49,9 +65,17 @@ function abrirEstudiantesJSON(evento) {
 
 
 function cargarEstudiantes() {
+    window.temporada=contenidoEstudiantesJSON;
    // alert("Cargando Estudiantes...!!")
+   /*contenidoEstudiantesJSON.forEach(e => {
+    console.log(e.carpeta_raiz)
+
+
+})*/
     contenidoEstudiantesJSON.forEach(e => {
-        avl.insertar(e.carnet, e.nombre,e.password)
+      //  let tree = new Tree();
+        
+        avl.insertar(e.carnet, e.nombre,e.password,e.carpeta_raiz)
 
     
     })
@@ -98,10 +122,15 @@ function showStudentsForm(e){
 
 function showLocalStudents(){
     let temp = localStorage.getItem("avlTree")
+    var temp2 = JSON.parse(temp)
     avl.root = JSON.parse(temp).root
+    console.log("verrrrr")
+    console.log(avl)
     $('#studentsTable tbody').html(
         avl._recorridoInOrden(avl.root)
     )
+    console.log("aqui avl1")
+    console.log(avl) 
 }
 
 function buscarUsuario(nombree, passwordd){
@@ -119,6 +148,7 @@ function buscarUsuario(nombree, passwordd){
     }
 }
 }
-
+console.log("aqui avl") 
+console.log(avl) 
 $( document ).ready(showLocalStudents);
-export{avl}
+export{avl} 
