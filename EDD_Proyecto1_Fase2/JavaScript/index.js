@@ -91,7 +91,7 @@ const year = now.getFullYear();
     console.log("datos")
     console.log(folderName)
     console.log(path)
-    window.lis.agregarAlinicio(new NodoC("Accion: se creó carpeta",folderName,"Fecha: "+dia+"/"+mes+"/"+year,"Hora: "+hours+":"+minutes+":"+seconds))
+    window.lis.agregarAlfinal(new NodoC("Accion: se creó carpeta",folderName,"Fecha: "+dia+"/"+mes+"/"+year,"Hora: "+hours+":"+minutes+":"+seconds))
     $('#carpetas').html(window.treee.getHTML(path))
 }
 
@@ -112,7 +112,7 @@ function eliminarCarpeta(e){
     let fatherNode = window.treee.getFolder(fatherPath);
     fatherNode.children = fatherNode.children.filter( child => child.folderName != folderName);
     alert("Todo bien!")
-    window.lis.agregarAlinicio(new NodoC("Accion: se eliminó carpeta",folderName,"Fecha: "+dia+"/"+mes+"/"+year,"Hora: "+hours+":"+minutes+":"+seconds))
+    window.lis.agregarAlfinal(new NodoC("Accion: se eliminó carpeta",folderName,"Fecha: "+dia+"/"+mes+"/"+year,"Hora: "+hours+":"+minutes+":"+seconds))
     $('#carpetas').html(window.treee.getHTML(path))
 }
  
@@ -160,10 +160,6 @@ const subirArchivo =  async (e) => {
     const mes = now.getMonth();
     const year = now.getFullYear();
 
-
-
-
-
     e.preventDefault();
     const formData = new FormData(e.target);
     const form = Object.fromEntries(formData);
@@ -186,7 +182,7 @@ if(window.treee.buscarArchivo(form.fileName)){
             })
             $('#carpetas').html(window.treee.getHTML(path));
         };
-        window.lis.agregarAlinicio(new NodoC("Accion: se creo archivo",form.fileName,"Fecha: "+dia+"/"+mes+"/"+year,"Hora: "+hours+":"+minutes+":"+seconds))
+        window.lis.agregarAlfinal(new NodoC("Accion: se creo archivo",form.fileName,"Fecha: "+dia+"/"+mes+"/"+year,"Hora: "+hours+":"+minutes+":"+seconds))
     }else{
         // IMÁGENES O PDF 
         let parseBase64 = await toBase64(form.file);
@@ -199,7 +195,7 @@ if(window.treee.buscarArchivo(form.fileName)){
         // console.log(parseBase64)
         // $("#imagenSubida").attr("src", imgBase64); 
         // console.log(await toBase64(form.file));
-        window.lis.agregarAlinicio(new NodoC("Accion: se creo archivo",form.fileName,"Fecha: "+dia+"/"+mes+"/"+year,"Hora: "+hours+":"+minutes+":"+seconds))
+        window.lis.agregarAlfinal(new NodoC("Accion: se creo archivo",form.fileName,"Fecha: "+dia+"/"+mes+"/"+year,"Hora: "+hours+":"+minutes+":"+seconds))
     }
     
     alert('Archivo Subido!')
