@@ -418,17 +418,17 @@ _returnLista(pivote, indice,pas) {
 
     if (root.der === null && root.izq === null) {
       cadena =
-        "nodo" + root.dato.toString() + '[label ="carnet: ' + root.dato.toString() + "\\n nombre: " + root.valor + '"]; \n';
+        "nodo" + root.dato.toString() + '[label ="carnet: ' + root.dato.toString() + "\\n nombre: " + root.valor + "\\n"+this._getAltura(root.izq)+ '"]; \n';
     } else {
-      cadena = "nodo" + root.dato.toString() + '[label ="<C0>|carnet: ' + root.dato.toString() + "\\n nombre: " + root.valor + '|<C1> "]; \n';
+      cadena = "nodo" + root.dato.toString() + '[label ="<C0>|carnet: ' + root.dato.toString() + "\\n nombre: " + root.valor+ "\\n" +  this._getAltura(root.der)+'|<C1> "]; \n';
     }
 
     if (root.izq !== null) {
-      cadena = cadena + this.__graficadora(root.izq) + "nodo" + root.dato.toString() + ":C0->nodo" + root.izq.dato.toString()+ "\n";
+      cadena = cadena + this.__graficadora(root.izq) + "nodo" + root.dato.toString() + ":C0->nodo" + root.izq.dato.toString()+"\n";
     }
 
     if (root.der !== null) {
-      cadena = cadena + this.__graficadora(root.der) + "nodo" + root.dato.toString() + ":C1->nodo" + root.der.dato.toString() + "\n";
+      cadena = cadena + this.__graficadora(root.der) + "nodo" + root.dato.toString() + ":C1->nodo" + root.der.dato.toString()+  "\n";
     }
     return cadena;
   }
