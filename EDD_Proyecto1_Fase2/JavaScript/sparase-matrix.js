@@ -293,5 +293,3 @@ class SparseMatrix{
 }
 
 // module.exports = SparseMatrix;
-
-

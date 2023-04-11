@@ -34,7 +34,6 @@ window.addEventListener("load", () => {
 
 
 
-
 function abrirEstudiantesJSON(evento) {  
     let tree = new Tree();
 localStorage.setItem("avlN", JSON.stringify(tree))
