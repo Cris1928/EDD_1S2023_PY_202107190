@@ -251,6 +251,14 @@ function buscarUsuario(nombree, passwordd){
                 enumerable: true,
                 configurable: true
                 });
+                Object.defineProperty(window.lis, 'agregarAlfinal', {
+                    value: list.agregarAlfinal,
+                    writable: true,
+                    enumerable: true,
+                    configurable: true
+                    });
+
+                    
                 Object.defineProperty(window.lis, 'recorrerLista', {
                     value: list.recorrerLista,
                     writable: true,
