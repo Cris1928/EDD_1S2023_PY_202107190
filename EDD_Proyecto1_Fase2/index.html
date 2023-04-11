@@ -221,6 +221,9 @@
                 <li class="nav-item">
                     <a class="nav-link" id="vista-archivos">Reporte de bitacora</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="vista-permisos">Reporte de archivos y permisos</a>
+                </li>
                 </li>
             </ul>
         </div>
@@ -254,7 +257,7 @@
                 <hr>
                 <form class="form" onsubmit="subirArchivo(event)">
                     <input type="text" id="fileName" name="fileName" class="form-control mb-4" placeholder="Nombre de Archivos"/>
-                    <input type="file" id="file" name="file" class="form-control" accept="application/pdf, .txt, image/*">
+                    <input type="file" id="file" name="file" class="form-control" accept="application/pdf,image/png,text/plain">
                     <div class="form-group mt-4">
                         <button type="submit" class="btn btn-primary w-100">Subir Archivo</button>
                     </div>
@@ -317,7 +320,52 @@
     </div>
 </div>
 
+<div id="matriz" style="display: none;">
+    <div class="ROW">
+        <div class="mt-5 mb-5">
+            <h1>Matriz Dispersa</h1>
+            <hr>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <center><h5>Ingresar Valores </h5></center>
+                <hr>
+                <form class="form" onsubmit="handleSubmit(event)">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group mt-2">
+                                Posición en X:
+                                <input type="text" id="xpos" name="xpos" class="form-control" placeholder="Pos. X">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group mt-2">
+                                Posición en Y:
+                                <input type="text" id="ypos" name="ypos" class="form-control" placeholder="Pos. Y">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-2">
+                        Valor del nodo:
+                        <input type="text" class="form-control" id="value" name="value" placeholder="Valor del nodo">
+                    </div>
 
+                    <div class="form-group mt-4">
+                        <button type="submit" class="btn btn-danger w-100">Ingresar a la Matriz</button>
+                    </div>
+                </form>
+                
+                <hr>
+                <div class="form-group mt-4">
+                    <a href="./graph.html" class="btn btn-secondary w-100">Mostrar Gráfica</a>
+                </div>
+            </div>
+            <!-- <div class="col-9 bg-danger">
+                <img id="graph"/>
+            </div> -->
+        </div>
+    </div>
+</div>
         <!-- importaciones de bootstrap -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -332,6 +380,8 @@
     <!-- importación de los archivos de la carpeta de JAvaScript -->
     <script type="module" src="./JavaScript/Carga_masiva.js"></script>
     <script type="module" src="./JavaScript/main.js"></script>
+    <script  src="./JavaScript/sparase-matrix.js"></script>
+    <script  src="./JavaScript/Matriz.js"></script>
 
     <!-- importaciones del d3 graphviz -->
     <script src="https://d3js.org/d3.v5.min.js"></script>

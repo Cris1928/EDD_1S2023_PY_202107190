@@ -1,5 +1,6 @@
 
 // CLASE NODO 
+
 class Tnode{
     
     constructor(folderName){
@@ -38,6 +39,48 @@ export class Tree{
             console.log("Ruta no existe");
         }
     }
+
+    buscarArchivo(archivo){
+        let node = this.root;
+        let queue = [];
+
+        queue.push(node);
+        while(queue.length !== 0){
+            let len = queue.length;
+            for(let i = 0; i < len; i ++){
+                let node = queue.shift();
+                if(node.files.includes(archivo)){
+                    return true;
+                }
+                node.children.forEach( item => {
+                    queue.push(item);
+                });
+            }
+        }
+        return false;
+    }
+    
+
+    buscarCarpeta(carpeta){
+        let node = this.root;
+        let queue = [];
+        queue.push(node);
+        while(queue.length !== 0){
+            let len = queue.length;
+            for(let i = 0; i < len; i ++){
+                let node = queue.shift();
+                if(node.folderName == carpeta){
+                    return true;
+                }
+                console.log(node.folderName);
+                node.children.forEach( item => {
+                    queue.push(item);
+                });
+            }
+        }
+        return false;
+    }
+
 
 
     getFolder(path){
@@ -95,7 +138,7 @@ export class Tree{
         // console.log(node.files)
         node.files.map(file => {
             if(file.type === 'text/plain'){
-                let archivo = new Blob([file.content], file.type);
+                let archivo = new Blob([file.content], {type: "text/plain;charset=utf-8"});
                 const url = URL.createObjectURL(archivo);
                 code += `
                         <div class="col-2 folder">

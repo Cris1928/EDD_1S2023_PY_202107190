@@ -80,6 +80,12 @@ const year = now.getFullYear();
     e.preventDefault();
     let folderName =  $('#folderName').val();
     let path =  $('#path').val();
+
+//aqui
+    if(window.treee.buscarCarpeta(folderName)){
+        folderName=folderName+"(copia)"
+    }
+
     window.treee.insert(folderName, path);
     alert("Todo bien!")
     console.log("datos")
@@ -161,6 +167,10 @@ const subirArchivo =  async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const form = Object.fromEntries(formData);
+//aquiiii
+if(window.treee.buscarArchivo(form.fileName)){
+    form.fileName=form.fileName+"(copia)"
+}
     // console.log(form.file.type);
     let path = $('#path').val();
     if(form.file.type === 'text/plain'){

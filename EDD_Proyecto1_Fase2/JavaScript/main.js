@@ -13,8 +13,10 @@ document.getElementById("grafo-avl").onclick = mostrarGrafo_AVL
 document.getElementById("vista-carpetas").onclick = mostrarArbol_N
 document.getElementById("vista-usuarios").onclick = mostrarUsuario
 document.getElementById("vista-archivos").onclick = mostrarBitacora
+document.getElementById("vista-permisos").onclick = mostrarMatriz
 
 var user, pass, check, bolean
+//window.archivos=[];
 let contra=null;
  window.temporada=[];
 window.temporal=null;
@@ -48,6 +50,7 @@ function login() {
         document.getElementById("usuario").style.display = "none"
         document.getElementById("arbol-n").style.display = "none"
         document.getElementById("arbol-b").style.display = "none"
+        document.getElementById("matriz").style.display = "none"
 
      
     }
@@ -63,6 +66,7 @@ function login() {
         document.getElementById("usuario").style.display = "block"
         document.getElementById("arbol-n").style.display = "none"
         document.getElementById("arbol-b").style.display = "none"
+        document.getElementById("matriz").style.display = "none"
 
     }
    
@@ -78,6 +82,7 @@ function login() {
         document.getElementById("usuario").style.display = "block"
         document.getElementById("arbol-n").style.display = "none"
         document.getElementById("arbol-b").style.display = "none"
+        document.getElementById("matriz").style.display = "none"
     }
 
     else {
@@ -97,7 +102,7 @@ function cerrarSesion() {
     document.getElementById("usuario").style.display = "none"
     document.getElementById("arbol-n").style.display = "none"
     document.getElementById("arbol-b").style.display = "none"
-    
+    document.getElementById("matriz").style.display = "none"
 
 
     document.getElementById("usser").value = ""
@@ -114,6 +119,7 @@ function cerrarSesion2() {
     document.getElementById("usuario").style.display = "none"
     document.getElementById("arbol-n").style.display = "none"
     document.getElementById("arbol-b").style.display = "none"
+    document.getElementById("matriz").style.display = "none"
  //   localStorage.setItem("avlN", JSON.stringify(window.treee))
     console.log(document.getElementById("usser").value)
     console.log(document.getElementById("password").value)
@@ -145,6 +151,7 @@ function mostrarCargaMasiva() {
     document.getElementById("arbol-n").style.display = "none"
     document.getElementById("arbol-n").style.display = "none"
     document.getElementById("arbol-b").style.display = "none"
+    document.getElementById("matriz").style.display = "none"
 }
 
 function mostrarGrafo_AVL() {
@@ -156,6 +163,7 @@ function mostrarGrafo_AVL() {
     document.getElementById("arbol-n").style.display = "none"
     document.getElementById("arbol-n").style.display = "none"
     document.getElementById("arbol-b").style.display = "none"
+    document.getElementById("matriz").style.display = "none"
 }
 
 function mostrarArbol_N(){
@@ -168,6 +176,7 @@ function mostrarArbol_N(){
     document.getElementById("usuario").style.display = "none"
     document.getElementById("arbol-n").style.display = "block"
     document.getElementById("arbol-b").style.display = "none"
+    document.getElementById("matriz").style.display = "none"
 
 }
 
@@ -181,6 +190,7 @@ function mostrarUsuario(){
     document.getElementById("usuario").style.display = "block"
     document.getElementById("arbol-n").style.display = "none"
     document.getElementById("arbol-b").style.display = "none"
+    document.getElementById("matriz").style.display = "none"
 
 }
 
@@ -193,6 +203,19 @@ function mostrarBitacora(){
     document.getElementById("usuario").style.display = "none"
     document.getElementById("arbol-n").style.display = "none"
     document.getElementById("arbol-b").style.display = "block"
+    document.getElementById("matriz").style.display = "none"
+}
+
+function mostrarMatriz(){
+    document.getElementById("login").style.display = "none"
+    document.getElementById("navbar-administrador").style.display = "none"
+    document.getElementById("administrador").style.display = "none"
+    document.getElementById("mostrar-grafo-avl").style.display = "none"
+    document.getElementById("navbar-usuario").style.display = "block"
+    document.getElementById("usuario").style.display = "none"
+    document.getElementById("arbol-n").style.display = "none"
+    document.getElementById("arbol-b").style.display = "none"
+    document.getElementById("matriz").style.display = "block"
 }
 
 function buscarUsuario(nombree, passwordd){
@@ -276,6 +299,20 @@ function buscarUsuario(nombree, passwordd){
                         enumerable: true,
                         configurable: true
                         });
+
+                        Object.defineProperty(window.treee, 'buscarCarpeta', {
+                            value: tres.buscarCarpeta,
+                            writable: true,
+                            enumerable: true,
+                            configurable: true
+                            });
+
+                            Object.defineProperty(window.treee, 'buscarArchivo', {
+                                value: tres.buscarArchivo,
+                                writable: true,
+                                enumerable: true,
+                                configurable: true
+                                });
        // console.log(window.treee);
 
         return usuario; 
